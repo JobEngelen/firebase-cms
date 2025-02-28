@@ -41,6 +41,8 @@ yarn-error.log*
 firebase.json
 firebase-debug.log
 
+# filepath: /c:/Users/joben/Documents/git/skinpoint-2/.gitignore
+skinpoint-nl-firebase-adminsdk-fbsvc-a35cbcf8ae.json
 
 # typescript
 *.tsbuildinfo

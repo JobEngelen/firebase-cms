@@ -11,11 +11,11 @@ if (!admin.apps.length) {
   // Verify the service account file exists
   if (fs.existsSync(serviceAccountPath)) {
     const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
-
+    
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       projectId: serviceAccount.project_id,
-      storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+      storageBucket: "skinpoint-nl.firebasestorage.app",
       databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
     });
 

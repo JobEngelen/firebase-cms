@@ -42,7 +42,7 @@ try {
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
         projectId: serviceAccount.project_id,
-        storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+        storageBucket: "skinpoint-nl.firebasestorage.app",
         databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
       });
       
@@ -51,8 +51,8 @@ try {
       // Fallback to environment variables if file doesn't exist
       admin.initializeApp({
         credential: admin.credential.applicationDefault(),
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+        projectId: "skinpoint-nl",
+        storageBucket: "skinpoint-nl.firebasestorage.app",
       });
       
       console.log("Firebase Admin initialized with environment variables");
@@ -83,14 +83,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     try {
-      // Verify storage bucket is configured
-      if (!process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET) {
-        return res.status(500).json({ 
-          success: false, 
-          message: 'Storage bucket not configured in environment variables' 
-        });
-      }
-      
       const { fields, files } = await parseFormData(req);
       
       // Check if files exist and get the first file
@@ -115,7 +107,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       
       try {
         // Upload to Firebase Storage
-        const bucket = storage.bucket(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET);
+        const bucket = storage.bucket("skinpoint-nl.firebasestorage.app");
         const fileUpload = bucket.file(destination);
         await fileUpload.save(fileData);
 
